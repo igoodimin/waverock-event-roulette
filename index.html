@@ -13,48 +13,53 @@
   html,body{margin:0;background:var(--bg);color:var(--ink);
     font-family:var(--wr-font,Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif)}
   button,input,textarea{font:inherit}
-  .app{display:grid;grid-template-columns:var(--wr-sidebar-w,280px) minmax(0,1fr);height:calc(100vh - var(--hh))}
-  .panel{background:var(--panel);border-right:1px solid var(--line);padding:4px 20px 24px;overflow:auto;display:flex;flex-direction:column}
-  .sec{padding:18px 0;border-top:1px solid var(--line)}
-  .sec:first-child{border-top:0}
-  label.t{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
-  input[type=text],input[type=number],textarea{width:100%;min-height:var(--ch);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;
-    font-size:15px;background:var(--panel);color:var(--ink)}
-  textarea{height:180px;resize:vertical;line-height:1.5}
+  .app{display:grid;grid-template-columns:var(--wr-sidebar-w,280px) minmax(0,1fr);gap:28px;padding:32px;align-items:start}
+  .panel{border-right:1px solid var(--line);padding-right:18px;display:flex;flex-direction:column}
+  .sec{padding:23px 0 21px;border-top:1px solid var(--line)}
+  .sec:first-child{padding-top:0;border-top:0}
+  .sec h2{margin:0 0 18px;font-size:12px;font-weight:700;color:var(--muted)}
+  .sec h2 span{margin-left:4px;font-size:15px;color:var(--ink)}
+  label.t{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:6px}
+  .gap{margin-top:14px}
+  input[type=text],input[type=number],textarea{width:100%;height:43px;border:1px solid var(--line);border-radius:var(--r);padding:12px;
+    font-size:14px;font-weight:500;background:var(--panel);color:var(--ink)}
+  textarea{height:132px;resize:vertical;line-height:1.5}
   input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
   input[type=range],input[type=checkbox]{accent-color:var(--accent)}
-  input[type=range]{width:100%;margin:0;height:var(--ch)}
+  input[type=range]{width:100%;margin:0;height:28px}
   input[type=checkbox]{width:16px;height:16px;margin:0}
   .row{display:flex;gap:8px;align-items:center}
-  .stats{font-size:13px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stats{font-size:12px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;align-items:center}
   .stats b{color:var(--ink)}
-  .seg{display:flex;gap:6px}
-  .seg button{flex:1;height:var(--ch);border:1px solid var(--line);background:var(--panel);border-radius:var(--r);font-weight:600;font-size:14px;color:var(--ink);cursor:pointer}
-  .seg button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-  .chk{display:flex;flex-direction:column;gap:10px;font-size:14px}
-  .chk label{display:flex;gap:8px;align-items:center;cursor:pointer}
-  .btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:var(--r);min-height:var(--ch);padding:0 14px;
-    font-size:15px;font-weight:700;cursor:pointer;width:100%;background:var(--soft);color:var(--ink);text-decoration:none}
+  .seg{display:flex;gap:8px}
+  .seg button{flex:1;height:38px;border:0;background:var(--soft);border-radius:var(--r);font-weight:700;font-size:12px;color:var(--ink);cursor:pointer}
+  .seg button:hover{background:var(--soft-h)}
+  .seg button.on{background:var(--accent);color:var(--accent-ink)}
+  .chk{display:flex;flex-wrap:wrap;gap:10px 14px;font-size:13px;font-weight:500}
+  .chk label{display:flex;gap:6px;align-items:center;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:var(--r);min-height:43px;padding:0 15px;
+    font-size:14px;font-weight:700;cursor:pointer;width:100%;background:var(--soft);color:var(--ink);text-decoration:none}
   .btn:hover{background:var(--soft-h)}
-  .btn.pri{background:var(--accent);color:var(--accent-ink);font-size:16px}
+  .btn.pri{background:var(--accent);color:var(--accent-ink);min-height:47px}
   .btn.pri:hover{opacity:.88;background:var(--accent)}
-  .btn.ghost{min-height:34px;padding:0 12px;font-size:13px;width:auto}
+  .btn.ghost{min-height:30px;padding:0 10px;font-size:12px;width:auto}
   .btn:disabled{opacity:.45;cursor:not-allowed}
   .btn:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .note{font-size:12.5px;color:var(--muted);line-height:1.5}
-  .result{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:12px;font-size:15px;display:none;margin-top:12px}
+  .note{font-size:12px;color:var(--muted);line-height:1.6}
+  .result{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;font-size:14px;display:none;margin-top:12px}
   .result.show{display:block}
-  .downloads a{display:block;font-size:13px;color:var(--ink);margin-top:6px}
-  .stage{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0;padding:24px}
+  .downloads a{display:block;font-size:12px;color:var(--ink);margin-top:6px}
+  .stage{position:sticky;top:32px;display:flex;align-items:center;justify-content:center;min-width:0;height:calc(100vh - 142px)}
   .stage canvas{height:auto;border-radius:var(--r);box-shadow:0 6px 30px rgba(0,0,0,.12);background:var(--bg)}
-  #c45{width:min(100%,calc((100vh - var(--hh) - 48px)*0.8))}
-  #c916{width:min(100%,calc((100vh - var(--hh) - 48px)*0.5625))}
+  #c45{width:min(100%,calc((100vh - 142px)*0.8))}
+  #c916{width:min(100%,calc((100vh - 142px)*0.5625))}
   .off{position:fixed!important;left:-20000px;top:0;width:10px!important}
   @media(max-width:1100px){.app{grid-template-columns:var(--wr-sidebar-w-mid,240px) minmax(0,1fr)}}
   @media(max-width:760px){
-    .app{grid-template-columns:1fr;height:auto}
-    .panel{border-right:0;border-bottom:1px solid var(--line)}
-    .stage{padding:16px}
+    .app{grid-template-columns:1fr;padding:20px 16px}
+    .panel{border-right:0;padding-right:0}
+    .stage{position:static;height:auto}
     #c45{width:min(100%,calc(80vh*0.8))} #c916{width:min(100%,calc(80vh*0.5625))}
   }
 </style>
@@ -66,67 +71,63 @@
   <h1>이벤트 추첨 돌림판</h1>
 </header>
 <div class="app">
-  <div class="panel">
-    <div class="sec">
-      <label class="t" for="title">제목 (비우면 표시 안 함)</label>
-      <div class="row">
-        <input id="title" type="text" placeholder="예: 댓글이벤트 당첨자 발표" maxlength="40" style="flex:1">
-        <input id="titleColor" type="color" value="#1d1d1f" title="제목 색" style="flex:none;width:var(--ch);height:var(--ch);border:1px solid var(--line);border-radius:var(--r);padding:4px;background:var(--panel);cursor:pointer">
-      </div>
-    </div>
-
-    <div class="sec">
-      <label class="t">배경 사진</label>
-      <div class="row">
-        <label class="btn ghost" for="bgFile">사진 올리기</label>
-        <input id="bgFile" type="file" accept="image/*" style="display:none">
-        <span id="bgName" class="note" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">없음</span>
-        <button class="btn ghost" id="bgClear">지우기</button>
-      </div>
-      <label class="t" for="bgDim" style="margin:14px 0 0">사진 흐림 정도 <span id="bgDimV">8</span></label>
-      <input id="bgDim" type="range" min="0" max="40" step="1" value="8">
-    </div>
-
-    <div class="sec">
+  <aside class="panel">
+    <section class="sec">
+      <h2>01 <span>참가자</span></h2>
       <label class="t" for="ids">인스타그램 아이디 (줄바꿈·쉼표·띄어쓰기로 구분)</label>
       <textarea id="ids" placeholder="@wave_lover&#10;@climb.day&#10;@climb.day&#10;..."></textarea>
       <div class="stats">
         <span>참가자 <b id="sUnique">0</b>명 · 응모 <b id="sTotal">0</b>개</span>
         <button class="btn ghost" id="shuffle">순서 섞기</button>
       </div>
-      <div class="note" style="margin-top:6px">같은 아이디를 2번 넣으면 칸이 2개가 되어 당첨 확률도 2배가 됩니다.</div>
-    </div>
+      <p class="note" style="margin:6px 0 0">같은 아이디를 2번 넣으면 당첨 확률도 2배가 됩니다.</p>
+      <div class="cols gap">
+        <div>
+          <label class="t" for="winCount">당첨자 수</label>
+          <input id="winCount" type="number" min="1" value="1">
+        </div>
+        <div>
+          <label class="t" for="dur">회전 시간 <span id="durV">10</span>초</label>
+          <input id="dur" type="range" min="6" max="16" step="1" value="10" style="height:43px">
+        </div>
+      </div>
+    </section>
 
-    <div class="sec">
-      <label class="t" for="winCount">당첨자 수</label>
-      <input id="winCount" type="number" min="1" value="1">
-      <label class="t" for="dur" style="margin:14px 0 0">회전 시간 <span id="durV">10</span>초</label>
-      <input id="dur" type="range" min="6" max="16" step="1" value="10">
-    </div>
-
-    <div class="sec">
-      <label class="t">미리보기 비율</label>
+    <section class="sec">
+      <h2>02 <span>화면 꾸미기</span></h2>
+      <label class="t" for="title">제목 (비우면 표시 안 함)</label>
+      <div class="row">
+        <input id="title" type="text" placeholder="예: 댓글이벤트 당첨자 발표" maxlength="40" style="flex:1">
+        <input id="titleColor" type="color" value="#1d1d1f" title="제목 색" style="flex:none;width:43px;height:43px;border:1px solid var(--line);border-radius:var(--r);padding:4px;background:var(--panel);cursor:pointer">
+      </div>
+      <label class="t gap">배경 사진</label>
+      <div class="row">
+        <label class="btn ghost" for="bgFile">사진 올리기</label>
+        <input id="bgFile" type="file" accept="image/*" style="display:none">
+        <span id="bgName" class="note" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">없음</span>
+        <button class="btn ghost" id="bgClear">지우기</button>
+      </div>
+      <label class="t gap" for="bgDim">사진 흐림 정도 <span id="bgDimV">0</span></label>
+      <input id="bgDim" type="range" min="0" max="40" step="1" value="0">
+      <label class="t gap">미리보기 비율</label>
       <div class="seg" id="ratioSeg">
         <button data-r="916" class="on">9:16 스토리</button>
         <button data-r="45">4:5 피드</button>
       </div>
-    </div>
+    </section>
 
-    <div class="sec">
-      <label class="t">저장할 영상</label>
+    <section class="sec">
+      <h2>03 <span>추첨·영상 저장</span></h2>
       <div class="chk">
-        <label><input type="checkbox" id="rec916" checked> 9:16 스토리 (1080×1920)</label>
-        <label><input type="checkbox" id="rec45"> 4:5 피드 (1080×1350)</label>
-        <label><input type="checkbox" id="sound" checked> 소리 켜기</label>
+        <label><input type="checkbox" id="rec916" checked> 9:16 저장</label>
+        <label><input type="checkbox" id="rec45"> 4:5 저장</label>
+        <label><input type="checkbox" id="sound" checked> 소리</label>
       </div>
-    </div>
-
-    <div class="sec">
-      <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
         <button class="btn pri" id="goRec">돌리면서 영상 저장</button>
         <button class="btn" id="go">그냥 돌려보기</button>
       </div>
-      <div class="note" id="fmtNote" style="margin-top:8px"></div>
+      <p class="note" id="fmtNote" style="margin:8px 0 0"></p>
 
       <div class="result" id="result">
         <div style="display:flex;justify-content:space-between;align-items:center">
@@ -135,8 +136,8 @@
         <div id="resultList" style="margin-top:6px;line-height:1.7"></div>
         <div class="downloads" id="downloads"></div>
       </div>
-    </div>
-  </div>
+    </section>
+  </aside>
 
   <div class="stage">
     <canvas id="c45" width="1080" height="1350" class="off"></canvas>
