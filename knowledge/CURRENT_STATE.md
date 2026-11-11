@@ -1,8 +1,11 @@
 # 현재 상태 (2026-11-11)
 
 ## 완료
-- 돌림판 기능 전체 구현, GitHub 비공개 저장소에 올림
+- 돌림판 기능 전체 구현, GitHub 저장소에 올림
   - https://github.com/igoodimin/waverock-event-roulette (브랜치 main)
+- 2026-11-11 저장소를 공개로 바꾸고 GitHub Pages를 켬
+  - 주소: https://igoodimin.github.io/waverock-event-roulette/
+  - 디자인 툴 사이트(waverock-design-tools)의 보관용 칸, 강습 달력 옆에 카드 추가
 - 확인함: 30명 1명 추첨, 130명 3명 추첨, 4:5·9:16 MP4 동시 저장(H.264 + AAC)
 - 확인함: 20만 회 모의 실험으로 시작 위치와 당첨 결과가 무관함
 - 고침: 조용한 구간이 녹음에서 빠져 소리가 앞당겨지던 문제

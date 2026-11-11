@@ -3,132 +3,144 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>이벤트 추첨 돌림판</title>
+<title>WAVEROCK · 이벤트 추첨 돌림판</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css">
 <style>
-  :root{--bg:#f5f5f5;--panel:#fff;--ink:#1d1d1f;--muted:#6e6e73;--line:#e3e3e6;--accent:#ff4f6d;}
+  :root{--bg:var(--wr-bg,#f5f5f5);--panel:var(--wr-surface,#fff);--ink:var(--wr-ink,#222);--muted:var(--wr-sub,#6b6b6b);
+    --line:var(--wr-line,#e2e2e2);--soft:var(--wr-soft,#ececec);--soft-h:var(--wr-soft-hover,#e2e2e2);
+    --accent:var(--wr-accent,#222);--accent-ink:var(--wr-accent-ink,#fff);--r:var(--wr-radius,8px);--ch:var(--wr-control-h,44px);--hh:78px}
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
-  .app{display:grid;grid-template-columns:380px 1fr;gap:24px;padding:24px;height:100vh}
-  .panel{background:var(--panel);border-radius:18px;padding:22px;overflow:auto;display:flex;flex-direction:column;gap:18px;
-    box-shadow:0 1px 3px rgba(0,0,0,.05)}
-  h1{font-size:20px;margin:0}
-  label.t{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
-  input[type=text],input[type=number],textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;
-    font:inherit;font-size:15px;background:#fafafa;color:var(--ink)}
-  textarea{height:200px;resize:vertical;line-height:1.5}
-  input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;background:#fff}
-  .row{display:flex;gap:10px;align-items:center}
-  .stats{font-size:14px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+    font-family:var(--wr-font,Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif)}
+  button,input,textarea{font:inherit}
+  .app{display:grid;grid-template-columns:var(--wr-sidebar-w,280px) minmax(0,1fr);height:calc(100vh - var(--hh))}
+  .panel{background:var(--panel);border-right:1px solid var(--line);padding:4px 20px 24px;overflow:auto;display:flex;flex-direction:column}
+  .sec{padding:18px 0;border-top:1px solid var(--line)}
+  .sec:first-child{border-top:0}
+  label.t{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px}
+  input[type=text],input[type=number],textarea{width:100%;min-height:var(--ch);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;
+    font-size:15px;background:var(--panel);color:var(--ink)}
+  textarea{height:180px;resize:vertical;line-height:1.5}
+  input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+  input[type=range],input[type=checkbox]{accent-color:var(--accent)}
+  input[type=range]{width:100%;margin:0;height:var(--ch)}
+  input[type=checkbox]{width:16px;height:16px;margin:0}
+  .row{display:flex;gap:8px;align-items:center}
+  .stats{font-size:13px;color:var(--muted);margin-top:8px;display:flex;justify-content:space-between;align-items:center}
   .stats b{color:var(--ink)}
-  .seg{display:flex;background:#f0f0f2;border-radius:10px;padding:3px}
-  .seg button{flex:1;border:0;background:transparent;padding:8px;border-radius:8px;font:inherit;font-weight:600;color:var(--muted);cursor:pointer}
-  .seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-  .chk{display:flex;gap:16px;font-size:15px}
-  .chk label{display:flex;gap:6px;align-items:center;cursor:pointer}
-  .btn{border:0;border-radius:12px;padding:14px;font:inherit;font-size:16px;font-weight:700;cursor:pointer;width:100%}
-  .btn.pri{background:var(--accent);color:#fff}
-  .btn.sec{background:#1d1d1f;color:#fff}
-  .btn.ghost{background:#f0f0f2;color:var(--ink);padding:6px 10px;font-size:13px;width:auto;border-radius:8px}
+  .seg{display:flex;gap:6px}
+  .seg button{flex:1;height:var(--ch);border:1px solid var(--line);background:var(--panel);border-radius:var(--r);font-weight:600;font-size:14px;color:var(--ink);cursor:pointer}
+  .seg button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  .chk{display:flex;flex-direction:column;gap:10px;font-size:14px}
+  .chk label{display:flex;gap:8px;align-items:center;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:var(--r);min-height:var(--ch);padding:0 14px;
+    font-size:15px;font-weight:700;cursor:pointer;width:100%;background:var(--soft);color:var(--ink);text-decoration:none}
+  .btn:hover{background:var(--soft-h)}
+  .btn.pri{background:var(--accent);color:var(--accent-ink);font-size:16px}
+  .btn.pri:hover{opacity:.88;background:var(--accent)}
+  .btn.ghost{min-height:34px;padding:0 12px;font-size:13px;width:auto}
   .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .note{font-size:12.5px;color:var(--muted);line-height:1.5}
-  .result{background:#fff6f8;border:1px solid #ffd5de;border-radius:12px;padding:12px;font-size:15px;display:none}
+  .result{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:12px;font-size:15px;display:none;margin-top:12px}
   .result.show{display:block}
-  .downloads a{display:block;font-size:14px;color:var(--accent);margin-top:4px}
-  input[type=range]{width:100%}
-  .stage{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0}
-  .stage canvas{height:auto;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.08);background:var(--bg)}
-  #c45{width:min(100%,calc((100vh - 48px)*0.8))}
-  #c916{width:min(100%,calc((100vh - 48px)*0.5625))}
+  .downloads a{display:block;font-size:13px;color:var(--ink);margin-top:6px}
+  .stage{display:flex;align-items:center;justify-content:center;min-height:0;min-width:0;padding:24px}
+  .stage canvas{height:auto;border-radius:var(--r);box-shadow:0 6px 30px rgba(0,0,0,.12);background:var(--bg)}
+  #c45{width:min(100%,calc((100vh - var(--hh) - 48px)*0.8))}
+  #c916{width:min(100%,calc((100vh - var(--hh) - 48px)*0.5625))}
   .off{position:fixed!important;left:-20000px;top:0;width:10px!important}
-  @media(max-width:860px){
-    .app{grid-template-columns:1fr;height:auto;padding:16px}
+  @media(max-width:1100px){.app{grid-template-columns:var(--wr-sidebar-w-mid,240px) minmax(0,1fr)}}
+  @media(max-width:760px){
+    .app{grid-template-columns:1fr;height:auto}
+    .panel{border-right:0;border-bottom:1px solid var(--line)}
+    .stage{padding:16px}
     #c45{width:min(100%,calc(80vh*0.8))} #c916{width:min(100%,calc(80vh*0.5625))}
   }
 </style>
+<link rel="stylesheet" href="https://igoodimin.github.io/waverock-design-tools/ui.css">
 </head>
 <body>
+<header class="wr-header">
+  <a class="wr-home" href="https://igoodimin.github.io/waverock-design-tools/">← 디자인 툴</a>
+  <h1>이벤트 추첨 돌림판</h1>
+</header>
 <div class="app">
   <div class="panel">
-    <h1>이벤트 추첨 돌림판</h1>
-
-    <div>
+    <div class="sec">
       <label class="t" for="title">제목 (비우면 표시 안 함)</label>
       <div class="row">
-        <input id="title" type="text" placeholder="예: 11월 댓글 이벤트 당첨자 발표" maxlength="40" style="flex:1">
-        <input id="titleColor" type="color" value="#1d1d1f" title="제목 색" style="width:44px;height:42px;border:1px solid var(--line);border-radius:10px;padding:3px;background:#fafafa;cursor:pointer">
+        <input id="title" type="text" placeholder="예: 댓글이벤트 당첨자 발표" maxlength="40" style="flex:1">
+        <input id="titleColor" type="color" value="#1d1d1f" title="제목 색" style="flex:none;width:var(--ch);height:var(--ch);border:1px solid var(--line);border-radius:var(--r);padding:4px;background:var(--panel);cursor:pointer">
       </div>
     </div>
 
-    <div>
+    <div class="sec">
       <label class="t">배경 사진</label>
       <div class="row">
-        <label class="btn ghost" for="bgFile" style="cursor:pointer">사진 올리기</label>
+        <label class="btn ghost" for="bgFile">사진 올리기</label>
         <input id="bgFile" type="file" accept="image/*" style="display:none">
         <span id="bgName" class="note" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">없음</span>
         <button class="btn ghost" id="bgClear">지우기</button>
       </div>
-      <label class="t" for="bgDim" style="margin-top:10px">사진 흐림 정도 <span id="bgDimV">8</span></label>
+      <label class="t" for="bgDim" style="margin:14px 0 0">사진 흐림 정도 <span id="bgDimV">8</span></label>
       <input id="bgDim" type="range" min="0" max="40" step="1" value="8">
     </div>
 
-    <div>
+    <div class="sec">
       <label class="t" for="ids">인스타그램 아이디 (줄바꿈·쉼표·띄어쓰기로 구분)</label>
-      <textarea id="ids" placeholder="@wave_lover&#10;@jimin.daily&#10;@jimin.daily&#10;..."></textarea>
+      <textarea id="ids" placeholder="@wave_lover&#10;@climb.day&#10;@climb.day&#10;..."></textarea>
       <div class="stats">
         <span>참가자 <b id="sUnique">0</b>명 · 응모 <b id="sTotal">0</b>개</span>
         <button class="btn ghost" id="shuffle">순서 섞기</button>
       </div>
-      <div class="note">같은 아이디를 2번 넣으면 칸이 2개가 되어 당첨 확률도 2배가 됩니다.</div>
+      <div class="note" style="margin-top:6px">같은 아이디를 2번 넣으면 칸이 2개가 되어 당첨 확률도 2배가 됩니다.</div>
     </div>
 
-    <div class="row">
-      <div style="flex:1">
-        <label class="t" for="winCount">당첨자 수</label>
-        <input id="winCount" type="number" min="1" value="1">
-      </div>
-      <div style="flex:1.4">
-        <label class="t" for="dur">회전 시간 <span id="durV">10</span>초</label>
-        <input id="dur" type="range" min="6" max="16" step="1" value="10">
-      </div>
+    <div class="sec">
+      <label class="t" for="winCount">당첨자 수</label>
+      <input id="winCount" type="number" min="1" value="1">
+      <label class="t" for="dur" style="margin:14px 0 0">회전 시간 <span id="durV">10</span>초</label>
+      <input id="dur" type="range" min="6" max="16" step="1" value="10">
     </div>
 
-    <div>
+    <div class="sec">
       <label class="t">미리보기 비율</label>
       <div class="seg" id="ratioSeg">
-        <button data-r="45" class="on">4:5 피드</button>
-        <button data-r="916">9:16 스토리</button>
+        <button data-r="916" class="on">9:16 스토리</button>
+        <button data-r="45">4:5 피드</button>
       </div>
     </div>
 
-    <div>
+    <div class="sec">
       <label class="t">저장할 영상</label>
       <div class="chk">
-        <label><input type="checkbox" id="rec45" checked> 4:5 (1080×1350)</label>
-        <label><input type="checkbox" id="rec916" checked> 9:16 (1080×1920)</label>
+        <label><input type="checkbox" id="rec916" checked> 9:16 스토리 (1080×1920)</label>
+        <label><input type="checkbox" id="rec45"> 4:5 피드 (1080×1350)</label>
+        <label><input type="checkbox" id="sound" checked> 소리 켜기</label>
       </div>
     </div>
 
-    <div class="chk"><label><input type="checkbox" id="sound" checked> 소리 켜기</label></div>
-
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <button class="btn pri" id="goRec">돌리면서 영상 저장</button>
-      <button class="btn sec" id="go">그냥 돌려보기</button>
-    </div>
-    <div class="note" id="fmtNote"></div>
-
-    <div class="result" id="result">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <b>당첨 결과</b><button class="btn ghost" id="copy">복사</button>
+    <div class="sec">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn pri" id="goRec">돌리면서 영상 저장</button>
+        <button class="btn" id="go">그냥 돌려보기</button>
       </div>
-      <div id="resultList" style="margin-top:6px;line-height:1.7"></div>
-      <div class="downloads" id="downloads"></div>
+      <div class="note" id="fmtNote" style="margin-top:8px"></div>
+
+      <div class="result" id="result">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <b>당첨 결과</b><button class="btn ghost" id="copy">복사</button>
+        </div>
+        <div id="resultList" style="margin-top:6px;line-height:1.7"></div>
+        <div class="downloads" id="downloads"></div>
+      </div>
     </div>
   </div>
 
   <div class="stage">
-    <canvas id="c45" width="1080" height="1350"></canvas>
-    <canvas id="c916" width="1080" height="1920" class="off"></canvas>
+    <canvas id="c45" width="1080" height="1350" class="off"></canvas>
+    <canvas id="c916" width="1080" height="1920"></canvas>
   </div>
 </div>
 
@@ -147,7 +159,7 @@ const CANV = {
   '916': { el: $('#c916'), L: { key:'916', W:1080, H:1920, cy:1010, title:380, info:1555 } },
 };
 for (const k in CANV) CANV[k].ctx = CANV[k].el.getContext('2d');
-let view = '45';
+let view = '916';
 
 // ---------- 상태 ----------
 let entries = [];     // {name,key}
@@ -691,6 +703,8 @@ $('#ratioSeg').addEventListener('click', e => {
   view = b.dataset.r;
   for (const x of $('#ratioSeg').children) x.classList.toggle('on', x === b);
   for (const k in CANV) CANV[k].el.classList.toggle('off', k !== view);
+  // 저장할 영상도 지금 보고 있는 비율로 맞춤 (둘 다 필요하면 체크를 추가)
+  for (const k in CANV) $('#rec' + k).checked = k === view;
 });
 
 parse(); rebuildFromEntries();
